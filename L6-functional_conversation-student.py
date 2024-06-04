@@ -97,10 +97,10 @@ chain = prompt | model | OpenAIFunctionsAgentOutputParser()
 result = chain.invoke({"input": "what is the weather is sf?"})
 
 
-result.tool
+print(result.tool)
 
 
-result.tool_input
+print(result.tool_input)
 
 
 from langchain.prompts import MessagesPlaceholder
@@ -120,25 +120,25 @@ result1 = chain.invoke({
 })
 
 
-result1.tool
+print(result1.tool)
 
 
 observation = get_current_temperature(result1.tool_input)
 
 
-observation
+print(observation)
 
 
-type(result1)
+print(type(result1))
 
 
 from langchain.agents.format_scratchpad import format_to_openai_functions
 
 
-result1.message_log
+print(result1.message_log)
 
 
-format_to_openai_functions([(result1, observation), ])
+print(format_to_openai_functions([(result1, observation), ]))
 
 
 result2 = chain.invoke({
@@ -147,7 +147,7 @@ result2 = chain.invoke({
 })
 
 
-result2
+print(result2)
 
 
 from langchain.schema.agent import AgentFinish
@@ -191,27 +191,27 @@ def run_agent(user_input):
         intermediate_steps.append((result, observation))
 
 
-run_agent("what is the weather is sf?")
+print(run_agent("what is the weather is sf?"))
 
 
-run_agent("what is langchain?")
+print(run_agent("what is langchain?"))
 
 
-run_agent("hi!")
+print(run_agent("hi!"))
 
 
 from langchain.agents import AgentExecutor
 agent_executor = AgentExecutor(agent=agent_chain, tools=tools, verbose=True)
 
 
-agent_executor.invoke({"input": "what is langchain?"})
+print(agent_executor.invoke({"input": "what is langchain?"}))
 
 
-agent_executor.invoke({"input": "my name is bob"})
+print(agent_executor.invoke({"input": "my name is bob"}))
 
 
 
-agent_executor.invoke({"input": "what is my name"})
+print(agent_executor.invoke({"input": "what is my name"}))
 
 
 prompt = ChatPromptTemplate.from_messages([
@@ -234,16 +234,16 @@ memory = ConversationBufferMemory(return_messages=True,memory_key="chat_history"
 agent_executor = AgentExecutor(agent=agent_chain, tools=tools, verbose=True, memory=memory)
 
 
-agent_executor.invoke({"input": "my name is bob"})
+print(agent_executor.invoke({"input": "my name is bob"}))
 
 
-agent_executor.invoke({"input": "whats my name"})
+print(agent_executor.invoke({"input": "whats my name"}))
 
 
-agent_executor.invoke({"input": "whats the weather in sf?"})
+print(agent_executor.invoke({"input": "whats the weather in sf?"}))
 
 
-# ### Create a chatbot
+### Create a chatbot
 
 @tool
 def create_your_own(query: str) -> str:
@@ -256,9 +256,9 @@ tools = [get_current_temperature, search_wikipedia, create_your_own]
 
 
 import panel as pn  # GUI
-pn.extension()
-import panel as pn
 import param
+
+pn.extension()
 
 class cbfs(param.Parameterized):
     
@@ -314,5 +314,5 @@ dashboard = pn.Column(
     pn.Row(pn.pane.Markdown('# QnA_Bot')),
     pn.Tabs(('Conversation', tab1))
 )
-dashboard
 
+pn.serve(dashboard)
