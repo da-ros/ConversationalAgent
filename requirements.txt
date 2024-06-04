@@ -1,0 +1,9 @@
+python-dotenv
+openai
+langchain
+langchain-community
+requests
+pydantic
+wikipedia
+panel
+param

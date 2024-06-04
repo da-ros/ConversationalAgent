@@ -1,0 +1,8 @@
+.env
+/.env
+./.env
+env
+covenv
+/covenv
+./covenv
+__pycache__
